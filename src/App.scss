@@ -1,0 +1,11 @@
+@import '_loading.scss';
+
+.countries {
+    p {
+        margin-bottom: 5px;
+    }
+    .flag {
+        max-width: 50%;
+        margin-bottom: 40px;
+    }
+}

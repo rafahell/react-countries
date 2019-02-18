@@ -1,36 +1,78 @@
 import React, { Component } from 'react';
+import Loading from './Loading';
 import axios from 'axios';
 import {Container,Row,Col} from 'react-bootstrap';
 import './App.scss';
 
 class App extends Component {
-  state = {
-    persons: []
+  constructor(props) {
+    super(props);
+    this.state = {
+      isLoaded: false,
+      countries: []
+    }
+    this.handleClick = this.handleClick.bind(this);
   }
 
-  componentDidMount() {
-    axios.get(`https://jsonplaceholder.typicode.com/users`)
+  getAllMaps() {
+    axios.get(`https://restcountries.eu/rest/v2/all`)
       .then(res => {
-        const persons = res.data;
-        this.setState({ persons });
+        const countries = res.data;
+        this.setState({ 
+          countries,
+          isLoaded: true 
+        });
+      })
+
+      this.setState ({
+        isLoaded: false
       })
   }
 
+  getSingleCountry(id,status) {
+    axios.get("https://restcountries.eu/rest/v2/name/" + id)
+    
+      .then(res => {
+        const countryDetails = res.data;
+        status === true ?
+        this.setState({ 
+          countryDetails,
+          isLoaded: true 
+        }) : this.setState({isLoaded: false}) 
+      })
+  }
+
+  handleClick(e) {
+    this.setState({countryName: e.name })
+    console.log(e.name)
+  }
+
+  componentDidMount() {
+    this.getAllMaps();
+  }
+  
  
   render() {
 
-    const {persons} = this.state;
+    const {isLoaded, countries} = this.state;
 
     return (
+      
       <Container>
+        {isLoaded ?
 
           <Row>
-          {persons.map((person,index) =>
-            <Col sm={4} key={`persons-${index}`}><p> {person.name} </p></Col>
+          {countries.map((country,index) =>
+            <Col className="countries" sm={3} key={`countries-${index}`} onClick={() => this.handleClick(country) }> 
+              <p> {country.name} </p>
+              <img className="flag" src={country.flag} alt={country.name} />
+            </Col>
           )}
           </Row>
 
-      </Container>
+
+        : <Loading message="Loading..." />}
+      </Container> 
     );
   }
 }
