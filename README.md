@@ -1,4 +1,6 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+## API
+https://restcountries.eu
 
 ## Packages
 
@@ -6,6 +8,6 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 • React Bootstrap
 • Node Sass
 
-### `npm install` `npm start`
+## `npm install` `npm start`
 
-Install all depedencies and run with npm start
+Install all the depedencies and run npm start
