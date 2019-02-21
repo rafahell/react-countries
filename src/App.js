@@ -36,7 +36,6 @@ class App extends Component {
   handleClick(e) {
     const name = e.name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').toLowerCase();
     this.setState({cName: name })
-    console.log(name)
   }
 
   componentDidMount() {
@@ -69,7 +68,6 @@ class App extends Component {
           <Route exact path="/details" render={({history}) => (
             <CountryDetails
               cName={this.state.cName}
-              
             />
           )}
         />
