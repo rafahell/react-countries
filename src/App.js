@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import {Route, Link} from 'react-router-dom'
 import axios from 'axios';
 import Loading from './Loading';
+import CountryDetails from './CountryDetails';
 import {Container,Row,Col} from 'react-bootstrap';
 import './App.scss';
-import Main from './Main';
+
 
 class App extends Component {
   constructor(props) {
@@ -11,7 +13,7 @@ class App extends Component {
     this.state = {
       isLoaded: false,
       countries: [],
-      countryDetails: []
+      countryName: " "
     }
     this.handleClick = this.handleClick.bind(this);
   }
@@ -31,24 +33,12 @@ class App extends Component {
       })
   }
 
-  getSingleCountry(id) {
-    axios.get("https://restcountries.eu/rest/v2/name/" + id)
-    
-      .then(res => {
-        const countryDetails = res.data;
-       // status === true ?
-        this.setState({ 
-          countryDetails,
-          isLoaded: true 
-        })// : this.setState({isLoaded: false}) 
-      })
-  }
-
   handleClick(e) {
-    const countryName = e.name.replace(/\s/g, '');
-    this.setState({countryName: e.name })
-    console.log(e.name)
-    window.location = '/details/' 
+    const name = e.name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').toLowerCase();
+    this.setState({cName: name })
+    console.log(name)
+    //window.location = '/details/' 
+    
   }
 
   componentDidMount() {
@@ -61,27 +51,33 @@ class App extends Component {
     const {isLoaded, countries} = this.state;
 
     return (
+      //isLoaded ?
       
-      <Container>
-        
-        {isLoaded ?
+        <Container>
+          <Route exact path="/" render={() => (
+              <Container>
+                <Row>
+                    {countries.map((country,index) =>
+                      <Col className="countries" sm={3} key={`countries-${index}`} onClick={() => this.handleClick(country) }> 
+                        <Link to="/details"><p> {country.name} </p>
+                        <img className="flag" src={country.flag} alt={country.name} /></Link>
+                      </Col>            
+                    )}
+                </Row>
+              </Container>
+            )}
+          />
 
-          <Row>
-            <Main/>
-          {countries.map((country,index) =>
-            <Col className="countries" sm={3} key={`countries-${index}`} onClick={() => this.handleClick(country) }> 
-             
-             
-              <p> {country.name} </p>
-              <img className="flag" src={country.flag} alt={country.name} />
+          <Route exact path="/details" render={({history}) => (
+            <CountryDetails
+              cName={this.state.cName}
               
-              
-            </Col>
-            
+            />
           )}
-          </Row>
-        : <Loading message="Loading..." />}
-      </Container> 
+        />
+
+      {/* : <Loading message="Loading..." /> */}
+      </Container>
     );
   }
 }
