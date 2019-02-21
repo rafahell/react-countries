@@ -37,8 +37,6 @@ class App extends Component {
     const name = e.name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').toLowerCase();
     this.setState({cName: name })
     console.log(name)
-    //window.location = '/details/' 
-    
   }
 
   componentDidMount() {

@@ -11,7 +11,6 @@ class CountryDetails extends React.Component {
         axios.get("https://restcountries.eu/rest/v2/name/" + name)
         .then(res => {
             const details = res.data;
-            console.log(details)
             this.setState({ 
                 details
             }) 
@@ -22,7 +21,6 @@ class CountryDetails extends React.Component {
     componentDidMount () {
         const {cName} = this.props;
         this.getSingleCountry(cName);
-        console.log(cName)
     }
 
     render(){
