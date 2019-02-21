@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Route, Link} from 'react-router-dom'
 import axios from 'axios';
-import Loading from './Loading';
+//import Loading from './Loading';
 import CountryDetails from './CountryDetails';
 import {Container,Row,Col} from 'react-bootstrap';
 import './App.scss';
@@ -45,7 +45,8 @@ class App extends Component {
  
   render() {
 
-    const {isLoaded, countries} = this.state;
+    // const {isLoaded, countries} = this.state;
+    const {countries} = this.state;
 
     return (
       //isLoaded ?

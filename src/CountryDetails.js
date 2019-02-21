@@ -45,10 +45,9 @@ class CountryDetails extends React.Component {
 
     _onViewportChange = viewport => this.setState({
         viewport: {...this.state.viewport, ...viewport}
-      });
+    });
     
 
-    
     componentDidMount () {
         const {cName} = this.props;
         this.getSingleCountry(cName);
@@ -66,8 +65,6 @@ class CountryDetails extends React.Component {
                         <p>Capital: {d.capital}</p>
                         <p>Population: {parseInt(d.population).toLocaleString()}</p>
                         <p>Region: {d.region}</p>
-{console.log(d.latlng[0])}
-{console.log(d.latlng[1])}
                         <MapGL 
                           {...viewport}
                           width="100%"
