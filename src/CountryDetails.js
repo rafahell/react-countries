@@ -37,9 +37,9 @@ class CountryDetails extends React.Component {
                 details
             }) 
         }).catch((response) => {
-            if (response.status === undefined) {
-                window.location = '/' 
-            }
+           if (response.status === undefined) {
+               window.location = '/' 
+           }
         })
     }
 
@@ -56,6 +56,7 @@ class CountryDetails extends React.Component {
     render(){
 
         const { details, viewport } = this.state;
+        const { cName} = this.props
         
         return(
             <Container>
