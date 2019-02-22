@@ -4,10 +4,8 @@ import Countries from './Countries';
 import CountryDetails from './CountryDetails';
 import {Container} from 'react-bootstrap';
 import './App.scss';
-import createHistory from 'history/createBrowserHistory';
-const history = createHistory({
-  basename: process.env.PUBLIC_URL
-});
+
+
 
 class App extends Component {
   constructor(props) {
