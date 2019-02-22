@@ -66,7 +66,7 @@ class App extends Component {
             )}
           />
 
-          <Route exact path="/details" render={({history}) => (
+          <Route path="/details" render={({history}) => (
             <CountryDetails
               cName={this.state.cName}
             />
