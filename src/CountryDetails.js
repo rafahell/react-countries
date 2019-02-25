@@ -3,6 +3,7 @@ import axios from 'axios';
 import {Container, Col} from 'react-bootstrap';
 import MapGL, {Marker, NavigationControl} from 'react-map-gl';
 import Pin from './pin';
+import 'mapbox-gl/dist/mapbox-gl.css'
 
 const TOKEN = 'pk.eyJ1IjoicmFmYWhlbGwiLCJhIjoiY2pzMzJ1MnZ2MjQxYjQ0bHh4amQyczJyMSJ9.-iEWBE9bMBsJvf5uUtFiAw';
 const navStyle = {
@@ -13,20 +14,21 @@ const navStyle = {
   };
 
 class CountryDetails extends React.Component {
-    constructor(props) {
-        super(props);
+    // constructor(props) {
+    //     super(props);
 
-        this.state = {
+        state = {
             details: [],
             viewport: {
-                //latitude: 37.785164,
-                //longitude: -100,
+                latitude: -10,
+                longitude: -35,
                 zoom: 2,
                 bearing: 0,
                 pitch: 0
-            }
+            },
+            markers: [],
         };
-    }
+    // }
   
 
     getSingleCountry(name) {
@@ -43,20 +45,19 @@ class CountryDetails extends React.Component {
         })
     }
 
-    _onViewportChange = viewport => this.setState({
-        viewport: {...this.state.viewport, ...viewport}
-    });
-    
+    _updateViewport = (viewport) => {
+        this.setState({viewport});
+    }
 
     componentDidMount () {
         const {cName} = this.props;
         this.getSingleCountry(cName);
     }
-
+    
     render(){
 
-        const { details, viewport } = this.state;
-        const { cName} = this.props
+        const { details, viewport} = this.state;
+        // const { cName} = this.props
         
         return(
             <Container>
@@ -66,19 +67,20 @@ class CountryDetails extends React.Component {
                         <p>Capital: {d.capital}</p>
                         <p>Population: {parseInt(d.population).toLocaleString()}</p>
                         <p>Region: {d.region}</p>
+                        
                         <MapGL 
                           {...viewport}
-                          width="100%"
-                          height="400px"
-                          mapStyle="mapbox://styles/mapbox/dark-v9"
-                          onViewportChange={this._onViewportChange}
-                          longitude={Number(d.latlng[0])}
-                            latitude={Number(d.latlng[1])}
-                          mapboxApiAccessToken={TOKEN} >
+                            width="100%"
+                            height="400px"
+                            mapStyle="mapbox://styles/mapbox/streets-v10"
+                            onViewportChange={this._updateViewport}
+                            longitude={d.latlng[1]}
+                            latitude={d.latlng[0]}
+                            mapboxApiAccessToken={TOKEN} >
                           
-                          <Marker key={`marker-${index}`}
-                            longitude={Number(d.latlng[0])}
-                            latitude={Number(d.latlng[1])}
+                          <Marker
+                            longitude={d.latlng[1]}
+                            latitude={d.latlng[0]}
                             // offsetTop={-20}
                             //  offsetLeft={-10}
                             >
