@@ -1,6 +1,5 @@
 import React from 'react';
 import axios from 'axios';
-import {Link} from 'react-router-dom';
 import {Container, Col, Row, Breadcrumb} from 'react-bootstrap';
 import MapGL, {Marker, NavigationControl} from 'react-map-gl';
 import Pin from './pin';
@@ -42,7 +41,7 @@ class CountryDetails extends React.Component {
             }) 
         }).catch((response) => {
            if (response.status === undefined) {
-               window.location = '/' 
+               window.location = process.env.PUBLIC_URL + '/' 
            }
         })
     }
@@ -66,7 +65,7 @@ class CountryDetails extends React.Component {
             <Container>
                 
                 <Breadcrumb>
-                    <Breadcrumb.Item><Link to={process.env.PUBLIC_URL + '/'}>Home</Link></Breadcrumb.Item>
+                    <Breadcrumb.Item href={process.env.PUBLIC_URL + '/'}>Home</Breadcrumb.Item>
                     {details.map((get,index) =>
                         <Breadcrumb.Item active key={`get-${index}`}>{get.name}</Breadcrumb.Item>
                     )}
