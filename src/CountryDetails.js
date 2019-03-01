@@ -65,7 +65,7 @@ class CountryDetails extends React.Component {
             <Container>
                 
                 <Breadcrumb>
-                    <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
+                    <Breadcrumb.Item onPress={() => this.props.navigation.goBack()>Home</Breadcrumb.Item>
                     {details.map((get,index) =>
                         <Breadcrumb.Item active key={`get-${index}`}>{get.name}</Breadcrumb.Item>
                     )}
