@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {Route} from 'react-router-dom'
 import Countries from './Countries';
 import CountryDetails from './CountryDetails';
-import {Container} from 'react-bootstrap';
+import {Container, Row} from 'react-bootstrap';
 import './App.scss';
 
 
@@ -30,7 +30,8 @@ class App extends Component {
 
     return (
       
-        <Container>
+        <Container fluid>
+        <Row>
           <Route exact path="/" render={() => (
               <Countries  
                   cName={this.state.cName} 
@@ -45,6 +46,7 @@ class App extends Component {
             />
           )}
         />
+        </Row>
       </Container>
     );
   }

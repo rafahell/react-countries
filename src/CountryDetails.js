@@ -1,9 +1,10 @@
 import React from 'react';
 import axios from 'axios';
-import {Container, Col} from 'react-bootstrap';
+import {Container, Col, Row, Breadcrumb} from 'react-bootstrap';
 import MapGL, {Marker, NavigationControl} from 'react-map-gl';
 import Pin from './pin';
 import 'mapbox-gl/dist/mapbox-gl.css'
+import './App.scss';
 
 const TOKEN = 'pk.eyJ1IjoicmFmYWhlbGwiLCJhIjoiY2pzMzJ1MnZ2MjQxYjQ0bHh4amQyczJyMSJ9.-iEWBE9bMBsJvf5uUtFiAw';
 const navStyle = {
@@ -60,10 +61,19 @@ class CountryDetails extends React.Component {
         // const { cName} = this.props
         
         return(
+
             <Container>
+                
+                <Breadcrumb>
+                    <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
+                    {details.map((get,index) =>
+                        <Breadcrumb.Item active key={`get-${index}`}>{get.name}</Breadcrumb.Item>
+                    )}
+                </Breadcrumb>
+                <Row>
                 {details.map((d,index) =>
-                    <Col key={`details-${index}`}>
-                        <p>Name: {d.name}</p>
+                    <Col xs={9} key={`details-${index}`}>
+                        <p>Country: {d.name}</p>
                         <p>Capital: {d.capital}</p>
                         <p>Population: {parseInt(d.population).toLocaleString()}</p>
                         <p>Region: {d.region}</p>
@@ -93,7 +103,14 @@ class CountryDetails extends React.Component {
 
                         </MapGL>
                     </Col> 
-                )}
+                    )}
+
+                    {details.map((flag,index) =>
+                        <Col className="countries" xs={3}  key={`flag-${index}`}>
+                            <img className="flag" src={flag.flag} alt={flag.name} />
+                        </Col>
+                    )}
+                </Row>
             </Container>
             
         )

@@ -6,13 +6,21 @@ import {Container,Row,Col} from 'react-bootstrap';
 import './App.scss';
 
 
-class Countries extends React.Component {
+function isSearched(searchTerm) {
+    return function(item) {
+      return !searchTerm || item.name.toLowerCase().includes(searchTerm.toLowerCase());
+    }
+  }  
+
+class Countries extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isLoaded: false,
+      searchTerm: '',
       countries: [],
     }
+    this.searchValue = this.searchValue.bind(this);
   }
 
   getAllcountries() {
@@ -30,6 +38,10 @@ class Countries extends React.Component {
       })
   }
 
+  searchValue (e) {
+    this.setState ({searchTerm: e.target.value})
+  }
+
   componentDidMount() {
     this.getAllcountries();
   }
@@ -37,22 +49,36 @@ class Countries extends React.Component {
  
   render() {
 
-    const {countries, isLoaded} = this.state;
+    const {countries, isLoaded, searchTerm} = this.state;
     const {handleClick} = this.props
     return (
-      isLoaded ?
+
+
         
-              <Container>
+      isLoaded ?
+        <div>
+            <Container fluid>
                 <Row>
-                    {countries.map((country,index) =>
-                      <Col className="countries" sm={3} key={`countries-${index}`} onClick={() => handleClick(country) }> 
+                    <div className="wrapper-search">
+                        <form>
+                            <input type="search" placeholder="Search" onChange={this.searchValue}/>
+                        </form>
+                    </div>
+                </Row>
+            
+            
+            
+                <Row>
+                    {countries.filter(isSearched(searchTerm)).map((country,index) =>
+                      <Col className="countries" sm={2} key={`countries-${index}`} onClick={() => handleClick(country) }> 
                         <Link to="/details"><p> {country.name} </p>
                         <img className="flag" src={country.flag} alt={country.name} /></Link>
                       </Col>            
                     )}
                 </Row>
-              </Container>
-          
+            </Container>
+        
+        </div>
       : <Loading message="Loading..." />
       
     );
