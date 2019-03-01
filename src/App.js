@@ -32,7 +32,7 @@ class App extends Component {
       
         <Container fluid>
         <Row>
-          <Route exact path={process.env.PUBLIC_URL + '/'} render={() => (
+          <Route exact path="/" render={() => (
               <Countries  
                   cName={this.state.cName} 
                   handleClick={this.handleClick}
