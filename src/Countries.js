@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 import Loading from './Loading';
 import { Container, Row, Col } from 'react-bootstrap';
 import './App.scss';
-
 
 function isSearched(searchTerm) {
   return function (item) {
     return !searchTerm || item.name.toLowerCase().includes(searchTerm.toLowerCase());
   }
 }
+
+
 
 class Countries extends Component {
   constructor(props) {
@@ -23,6 +26,7 @@ class Countries extends Component {
     }
     this.searchValue = this.searchValue.bind(this);
   }
+
 
   getAllcountries() {
     axios.get(`https://restcountries.eu/rest/v2/all`)
@@ -56,6 +60,8 @@ class Countries extends Component {
     return (
 
       isLoaded ?
+
+
         <div>
           <Container fluid>
             <Row>
@@ -70,10 +76,17 @@ class Countries extends Component {
 
             <Row>
               {countries.filter(isSearched(searchTerm)).map((country, index) =>
+
                 <Col className="countries" sm={2} key={`countries-${index}`} onClick={() => handleClick(country)}>
-                  <Link to="/details"><p> {country.name} </p>
-                    <img className="flag" src={country.flag} alt={country.name} /></Link>
+                  <Link to="/details">
+
+                    <LazyLoadImage className="flag" effect="blur" src={country.flag} alt={country.name} />
+
+                    <p> {country.name} </p>
+
+                  </Link>
                 </Col>
+
               )}
             </Row>
           </Container>

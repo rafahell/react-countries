@@ -1,16 +1,16 @@
 import React from 'react';
-import {Container} from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 
-const Loading = ({message}) => 
+const Loading = ({ message }) =>
 
-<Container>
-    <div className="flex"></div>
-    <div className="loader"></div>
+    <Container>
+        <div className="flex"></div>
+        <div className="loader"></div>
 
-    <div className="load-text">
-        {message}
-    </div>
-</Container>
+        <div className="load-text">
+            {message}
+        </div>
+    </Container>
 
 
 
