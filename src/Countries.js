@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
+import { LazyLoadImage, scrollPosition } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import Loading from './Loading';
 import { Container, Row, Col } from 'react-bootstrap';
@@ -80,7 +80,7 @@ class Countries extends Component {
                 <Col className="countries" sm={2} key={`countries-${index}`} onClick={() => handleClick(country)}>
                   <Link to="/details">
 
-                    <LazyLoadImage className="flag" effect="blur" src={country.flag} alt={country.name} />
+                    <LazyLoadImage className="flag" effect="blur" src={country.flag} alt={country.name} scrollPosition={scrollPosition} />
 
                     <p> {country.name} </p>
 
