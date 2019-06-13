@@ -37,7 +37,7 @@ class Countries extends Component {
           isLoaded: true
         });
       })
-      .catch(error => this.setState({ error, isLoading: false }));
+      .catch(error => this.setState({ error, isLoaded: false }));
 
     this.setState({
       isLoaded: false
